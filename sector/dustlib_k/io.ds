@@ -1,0 +1,53 @@
+/// I/O forge for K‑regime.
+///
+/// Provides wrappers around file and device input/output effects.
+/// These processes handle opening, reading, writing and closing
+/// files, as well as interacting with ports and memory‑mapped
+/// devices.  Error handling and resource lifetime management are
+/// encoded in the types.
+
+forge io {
+    /// Open a file at `path` with the specified `mode`.  Returns a
+    /// handle of type `File` or an error if the operation fails.
+    process open(path: Str, mode: FileMode) -> File = {
+        // TODO: call the `open` effect
+    };
+
+    /// Read up to `n` bytes from `file` into the memory region
+    /// pointed to by `buffer`.  Returns the number of bytes read.
+    process read(file: File, buffer: Mem, n: Int) -> Int = {
+        // TODO: call the `read` effect
+    };
+
+    /// Write up to `n` bytes from `buffer` to `file`.  Returns the
+    /// number of bytes written.
+    process write(file: File, buffer: Mem, n: Int) -> Int = {
+        // TODO: call the `write` effect
+    };
+
+    /// Close the file handle.  After closing, the handle is invalid.
+    process close(file: File) -> () = {
+        // TODO: call the `close` effect
+    };
+
+    /// Read a value from an I/O port.  The port must be valid for
+    /// the current architecture.
+    process io_read(port: Port) -> Int = {
+        // TODO: call the `io_read` effect
+    };
+
+    /// Write a value to an I/O port.
+    process io_write(port: Port, value: Int) -> () = {
+        // TODO: call the `io_write` effect
+    };
+
+    /// Read a value from a memory‑mapped I/O address.
+    process mmio_read(addr: Mem) -> Int = {
+        // TODO: call the `mmio_read` effect
+    };
+
+    /// Write a value to a memory‑mapped I/O address.
+    process mmio_write(addr: Mem, value: Int) -> () = {
+        // TODO: call the `mmio_write` effect
+    };
+}

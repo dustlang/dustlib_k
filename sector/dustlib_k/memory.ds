@@ -1,0 +1,30 @@
+/// Memory forge for K‑regime operations.
+///
+/// This forge wraps the `alloc` and `free` effects defined in the
+/// DPL specification.  It also declares a convenience process for
+/// zero‑initialising allocated memory.  All allocations must obey
+/// the deterministic memory semantics【709885362819930†L42-L64】.
+
+forge memory {
+    /// Allocate a contiguous block of memory of `size` bytes.  The
+    /// returned `Mem` handle must be freed exactly once via
+    /// `memory.free`.  Allocation failures are reported via errors.
+    process alloc(size: Int) -> Mem = {
+        // TODO: call the `alloc` effect and return the handle
+    };
+
+    /// Free a previously allocated memory region.  After this call,
+    /// the `mem` handle becomes invalid.  Double freeing or using
+    /// freed memory is a constraint violation.
+    process free(mem: Mem) -> () = {
+        // TODO: call the `free` effect
+    };
+
+    /// Allocate and zero‑initialise a memory region.  This process
+    /// allocates `size` bytes and writes zeros into the entire
+    /// region.  It returns the `Mem` handle.  Behaviour is
+    /// deterministic.
+    process zero_alloc(size: Int) -> Mem = {
+        // TODO: allocate and write zeros to memory
+    };
+}

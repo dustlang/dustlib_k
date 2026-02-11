@@ -1,0 +1,27 @@
+/// Threading forge for K‑regime operations.
+///
+/// Provides deterministic thread creation (`spawn`) and joining
+/// (`join`).  Threads inherit the scheduler seed from their parent
+/// unless explicitly specified【548468680421956†L121-L129】.
+
+forge threading {
+    /// A handle to a spawned thread returning a value of type `T`.
+    shape Thread<T> = {
+        handle: ThreadHandle<T>;
+    };
+
+    /// Spawn a new thread to execute function `f`.  The optional
+    /// `seed` parameter controls the scheduler seed for reproducible
+    /// interleavings.  Returns a `Thread<T>` handle.  The body
+    /// implementation is deferred.
+    process spawn<T>(f: () -> T, seed?: Int) -> Thread<T> = {
+        // TODO: call the `spawn` effect
+    };
+
+    /// Join a thread and return its result.  Joining the same
+    /// thread more than once is invalid.  The body implementation
+    /// is deferred.
+    process join<T>(thread: Thread<T>) -> T = {
+        // TODO: call the `join` effect and return the result
+    };
+}

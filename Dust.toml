@@ -1,0 +1,15 @@
+[package]
+name = "dustlib_k"
+version = "0.2.0"
+authors = ["Dust Contributors <contributors@dustlang.org>"]
+edition = "2026"
+description = "K‑regime standard library for the Dust Programming Language"
+license = "DOSL"
+
+[workspace]
+members = [
+    "sector/dustlib_k"
+]
+
+# The `sector/dustlib_k` member contains all `.ds` source files for the
+# library.  Additional sectors may be added in future.

@@ -1,0 +1,25 @@
+/// Synchronisation forge for K‑regime.
+///
+/// Defines primitives for mutual exclusion.  These wrap the
+/// `mutex_new`, `mutex_lock` and `mutex_unlock` effects defined in
+/// the K‑regime semantics.
+
+forge sync {
+    /// Create a new mutex.  The returned `Mutex` can be copied;
+    /// copies refer to the same underlying lock.
+    process new() -> Mutex = {
+        // TODO: call the `mutex_new` effect
+    };
+
+    /// Acquire the mutex.  Blocks deterministically until the lock
+    /// can be taken.  Must be paired with `unlock`.
+    process lock(m: Mutex) -> () = {
+        // TODO: call the `mutex_lock` effect
+    };
+
+    /// Release the mutex.  Unlocking a mutex not held by the current
+    /// thread is a constraint violation.
+    process unlock(m: Mutex) -> () = {
+        // TODO: call the `mutex_unlock` effect
+    };
+}

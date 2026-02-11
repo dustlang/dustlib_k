@@ -1,0 +1,18 @@
+/// Unsafe operations forge for K‑regime.
+///
+/// Some systems programming tasks require bypassing Dust’s safety
+/// checks, such as raw pointer manipulation or inline assembly.
+/// The `unsafe` forge groups declarations related to these
+/// operations.  Code in this forge must be clearly annotated and
+/// justified.  Programmers bear full responsibility for correctness.
+
+forge unsafe_ops {
+    /// Execute an unsafe block.  The body of the block is written in
+    /// Dust but safety checks are relaxed.  A justification string
+    /// must be provided to explain why the unsafe operation is
+    /// necessary.  The language may surface this justification to
+    /// auditors.
+    process block(reason: Str, body: () -> ()) -> () = {
+        // TODO: provide a mechanism for unsafe execution
+    };
+}

@@ -1,0 +1,11 @@
+/// Top‑level forge for dustlib_k.
+///
+/// This file aggregates the K‑regime modules of dustlib_k.
+/// Importing `dustlib_k` brings the `memory`, `threading`, `sync`,
+/// `io` and `unsafe_ops` forges into scope.
+
+forge dustlib_k {
+    // aggregator for K‑regime library; individual forges are in
+    // separate `.ds` files and are automatically discovered by the
+    // compiler.
+}
