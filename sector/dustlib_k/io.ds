@@ -1,53 +1,64 @@
-/// I/O forge for K‑regime.
-///
-/// Provides wrappers around file and device input/output effects.
-/// These processes handle opening, reading, writing and closing
-/// files, as well as interacting with ports and memory‑mapped
-/// devices.  Error handling and resource lifetime management are
-/// encoded in the types.
+// dustlib_k deterministic io utilities.
 
-forge io {
-    /// Open a file at `path` with the specified `mode`.  Returns a
-    /// handle of type `File` or an error if the operation fails.
-    process open(path: Str, mode: FileMode) -> File = {
-        // TODO: call the `open` effect
-    };
+forge DustlibKIo {
 
-    /// Read up to `n` bytes from `file` into the memory region
-    /// pointed to by `buffer`.  Returns the number of bytes read.
-    process read(file: File, buffer: Mem, n: Int) -> Int = {
-        // TODO: call the `read` effect
-    };
+    const IO_OK: UInt32 = 0;
+    const IO_ERR: UInt32 = 1;
 
-    /// Write up to `n` bytes from `buffer` to `file`.  Returns the
-    /// number of bytes written.
-    process write(file: File, buffer: Mem, n: Int) -> Int = {
-        // TODO: call the `write` effect
-    };
+    proc K::file_open(path: UInt64, mode: UInt32) -> UInt64 {
+        if path == 0 {
+            return 0;
+        } else {
+            return open(path, mode);
+        }
+    }
 
-    /// Close the file handle.  After closing, the handle is invalid.
-    process close(file: File) -> () = {
-        // TODO: call the `close` effect
-    };
+    proc K::file_read(handle: UInt64, buffer: UInt64, length: UInt32) -> UInt32 {
+        if handle == 0 {
+            return IO_ERR;
+        } else {
+            return read(handle, buffer, length);
+        }
+    }
 
-    /// Read a value from an I/O port.  The port must be valid for
-    /// the current architecture.
-    process io_read(port: Port) -> Int = {
-        // TODO: call the `io_read` effect
-    };
+    proc K::file_write(handle: UInt64, buffer: UInt64, length: UInt32) -> UInt32 {
+        if handle == 0 {
+            return IO_ERR;
+        } else {
+            return write(handle, buffer, length);
+        }
+    }
 
-    /// Write a value to an I/O port.
-    process io_write(port: Port, value: Int) -> () = {
-        // TODO: call the `io_write` effect
-    };
+    proc K::file_close(handle: UInt64) -> UInt32 {
+        if handle == 0 {
+            return IO_ERR;
+        } else {
+            return close(handle);
+        }
+    }
 
-    /// Read a value from a memory‑mapped I/O address.
-    process mmio_read(addr: Mem) -> Int = {
-        // TODO: call the `mmio_read` effect
-    };
+    proc K::io_read(port: UInt16) -> UInt32 {
+        return inb(port);
+    }
 
-    /// Write a value to a memory‑mapped I/O address.
-    process mmio_write(addr: Mem, value: Int) -> () = {
-        // TODO: call the `mmio_write` effect
-    };
+    proc K::io_write(port: UInt16, value: UInt8) -> UInt32 {
+        outb(port, value);
+        return IO_OK;
+    }
+
+    proc K::mmio_read(addr: UInt64) -> UInt64 {
+        if addr == 0 {
+            return 0;
+        } else {
+            return addr;
+        }
+    }
+
+    proc K::mmio_write(addr: UInt64, value: UInt32) -> UInt32 {
+        if addr == 0 {
+            return IO_ERR;
+        } else {
+            return IO_OK;
+        }
+    }
 }

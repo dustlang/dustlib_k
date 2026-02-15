@@ -1,11 +1,21 @@
-/// Top‑level forge for dustlib_k.
-///
-/// This file aggregates the K‑regime modules of dustlib_k.
-/// Importing `dustlib_k` brings the `memory`, `threading`, `sync`,
-/// `io` and `unsafe_ops` forges into scope.
+// dustlib_k top-level forge.
 
-forge dustlib_k {
-    // aggregator for K‑regime library; individual forges are in
-    // separate `.ds` files and are automatically discovered by the
-    // compiler.
+forge DustlibK {
+
+    const ABI_REVISION: UInt32 = 3;
+
+    proc K::init() -> UInt32 {
+        emit "dustlib_k initialized";
+        return ABI_REVISION;
+    }
+
+    proc K::self_test() -> UInt32 {
+        let mem = alloc(64);
+        if mem == 0 {
+            return 1;
+        } else {
+            free(mem);
+            return 0;
+        }
+    }
 }

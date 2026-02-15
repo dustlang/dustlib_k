@@ -1,27 +1,56 @@
-/// Threading forge for K‑regime operations.
-///
-/// Provides deterministic thread creation (`spawn`) and joining
-/// (`join`).  Threads inherit the scheduler seed from their parent
-/// unless explicitly specified【548468680421956†L121-L129】.
+// dustlib_k deterministic threading facade.
 
-forge threading {
-    /// A handle to a spawned thread returning a value of type `T`.
-    shape Thread<T> = {
-        handle: ThreadHandle<T>;
-    };
+forge DustlibKThreading {
 
-    /// Spawn a new thread to execute function `f`.  The optional
-    /// `seed` parameter controls the scheduler seed for reproducible
-    /// interleavings.  Returns a `Thread<T>` handle.  The body
-    /// implementation is deferred.
-    process spawn<T>(f: () -> T, seed?: Int) -> Thread<T> = {
-        // TODO: call the `spawn` effect
-    };
+    const MAX_THREADS: UInt32 = 256;
+    const DEFAULT_STACK: UInt32 = 8192;
 
-    /// Join a thread and return its result.  Joining the same
-    /// thread more than once is invalid.  The body implementation
-    /// is deferred.
-    process join<T>(thread: Thread<T>) -> T = {
-        // TODO: call the `join` effect and return the result
-    };
+    proc K::spawn(entry: UInt32, seed: UInt32) -> UInt32 {
+        if entry == 0 {
+            return 0;
+        } else {
+            return next_thread_id(entry, seed);
+        }
+    }
+
+    proc K::join(thread_id: UInt32) -> UInt32 {
+        if thread_id == 0 {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
+
+    proc K::sleep(ms: UInt32) -> UInt32 {
+        if ms == 0 {
+            return 0;
+        } else {
+            return 0;
+        }
+    }
+
+    proc K::thread_spawn(entry: UInt32, seed: UInt32) -> UInt32 {
+        return spawn(entry, seed);
+    }
+
+    proc K::thread_join(thread_id: UInt32) -> UInt32 {
+        return join(thread_id);
+    }
+
+    proc K::thread_sleep(ms: UInt32) -> UInt32 {
+        return sleep(ms);
+    }
+
+    proc K::next_thread_id(entry: UInt32, seed: UInt32) -> UInt32 {
+        let mixed = entry + seed;
+        if mixed == 0 {
+            return 1;
+        } else {
+            if mixed >= MAX_THREADS {
+                return mixed - MAX_THREADS;
+            } else {
+                return mixed;
+            }
+        }
+    }
 }

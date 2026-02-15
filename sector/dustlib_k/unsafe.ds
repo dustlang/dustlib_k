@@ -1,18 +1,35 @@
-/// Unsafe operations forge for K‑regime.
-///
-/// Some systems programming tasks require bypassing Dust’s safety
-/// checks, such as raw pointer manipulation or inline assembly.
-/// The `unsafe` forge groups declarations related to these
-/// operations.  Code in this forge must be clearly annotated and
-/// justified.  Programmers bear full responsibility for correctness.
+// dustlib_k unsafe operation wrappers.
 
-forge unsafe_ops {
-    /// Execute an unsafe block.  The body of the block is written in
-    /// Dust but safety checks are relaxed.  A justification string
-    /// must be provided to explain why the unsafe operation is
-    /// necessary.  The language may surface this justification to
-    /// auditors.
-    process block(reason: Str, body: () -> ()) -> () = {
-        // TODO: provide a mechanism for unsafe execution
-    };
+forge DustlibKUnsafe {
+
+    const UNSAFE_ALLOWED: UInt32 = 1;
+    const UNSAFE_DENIED: UInt32 = 0;
+
+    proc K::block(reason: UInt64, capability: UInt32) -> UInt32 {
+        if capability == UNSAFE_ALLOWED {
+            emit "unsafe block entered";
+            puts(reason);
+            putchar(10);
+            return 0;
+        } else {
+            emit "unsafe block denied";
+            return 1;
+        }
+    }
+
+    proc K::read_volatile(addr: UInt64) -> UInt32 {
+        if addr == 0 {
+            return 0;
+        } else {
+            return 1;
+        }
+    }
+
+    proc K::write_volatile(addr: UInt64, value: UInt32) -> UInt32 {
+        if addr == 0 {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }

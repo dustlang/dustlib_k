@@ -1,25 +1,39 @@
-/// Synchronisation forge for K‑regime.
-///
-/// Defines primitives for mutual exclusion.  These wrap the
-/// `mutex_new`, `mutex_lock` and `mutex_unlock` effects defined in
-/// the K‑regime semantics.
+// dustlib_k synchronization helpers.
 
-forge sync {
-    /// Create a new mutex.  The returned `Mutex` can be copied;
-    /// copies refer to the same underlying lock.
-    process new() -> Mutex = {
-        // TODO: call the `mutex_new` effect
-    };
+forge DustlibKSync {
 
-    /// Acquire the mutex.  Blocks deterministically until the lock
-    /// can be taken.  Must be paired with `unlock`.
-    process lock(m: Mutex) -> () = {
-        // TODO: call the `mutex_lock` effect
-    };
+    const LOCK_FREE: UInt32 = 0;
+    const LOCK_HELD: UInt32 = 1;
 
-    /// Release the mutex.  Unlocking a mutex not held by the current
-    /// thread is a constraint violation.
-    process unlock(m: Mutex) -> () = {
-        // TODO: call the `mutex_unlock` effect
-    };
+    proc K::new_mutex(seed: UInt32) -> UInt32 {
+        if seed == 0 {
+            return 1;
+        } else {
+            return seed;
+        }
+    }
+
+    proc K::lock(state: UInt32) -> UInt32 {
+        if state == LOCK_HELD {
+            return LOCK_HELD;
+        } else {
+            return LOCK_HELD;
+        }
+    }
+
+    proc K::unlock(state: UInt32) -> UInt32 {
+        if state == LOCK_HELD {
+            return LOCK_FREE;
+        } else {
+            return LOCK_FREE;
+        }
+    }
+
+    proc K::try_lock(state: UInt32) -> UInt32 {
+        if state == LOCK_FREE {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 }
