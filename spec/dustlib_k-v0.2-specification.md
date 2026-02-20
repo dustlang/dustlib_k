@@ -38,7 +38,7 @@ dustlib_k is the K Regime specialized library for the Dust Programming Language,
 ### 2.1 Top-Level Structure
 
 ```
-dustlib_k/
+dustlib-k/
 ├── README.md                    # Project overview
 ├── LICENSE                      # Dust Open Source License
 ├── State.toml                   # DPL workspace manifest

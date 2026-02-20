@@ -1,4 +1,4 @@
-# dustlib_k – K‑Regime Library for Dust
+# dustlib-k – K‑Regime Library for Dust
 
 **dustlib_k** is the K‑regime standard library for the Dust Programming
 Language (DPL).  It builds upon the core library `dustlib` to provide
@@ -13,14 +13,14 @@ interfaces.
 ## Directory Structure
 
 ```
-dustlib_k/
+dustlib-k/
 ├── README.md          # this file
 ├── LICENSE            # Dust Open Source License
 ├── Dust.toml          # manifest describing the library and its sectors
 ├── spec/              # specification documents for dustlib_k
 │   └── 01-overview.md # overview of the K‑regime library
 └── sector/
-    └── dustlib_k/
+    └── dustlib-k/
         ├── lib.ds         # top‑level forge aggregating submodules
         ├── memory.ds      # memory management primitives
         ├── threading.ds   # thread creation and joining

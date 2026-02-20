@@ -35,7 +35,7 @@ Within that sector, the following forges are defined:
               access.  These operations remain dangerous and must be clearly
               annotated.                                                               |
 
-All forges reside in the `sector/dustlib_k` directory and are written in
+All forges reside in the `sector/dustlib-k` directory and are written in
 `.ds` files.
 
 ## Determinism and Safety

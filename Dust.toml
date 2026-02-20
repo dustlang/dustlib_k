@@ -8,8 +8,8 @@ license = "DOSL"
 
 [workspace]
 members = [
-    "sector/dustlib_k"
+    "sector/dustlib-k"
 ]
 
-# The `sector/dustlib_k` member contains all `.ds` source files for the
+# The `sector/dustlib-k` member contains all `.ds` source files for the
 # library.  Additional sectors may be added in future.

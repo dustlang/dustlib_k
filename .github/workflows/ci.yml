@@ -30,9 +30,9 @@ jobs:
           cd ../dust
           cargo build --workspace
 
-      - name: Verify dustlib_k structure
+      - name: Verify dustlib-k structure
         run: |
-          echo "Verifying dustlib_k structure..."
+          echo "Verifying dustlib-k structure..."
           echo "Sectors:"
           ls -la sector/
           echo ""
@@ -40,7 +40,7 @@ jobs:
           find sector -name "*.ds" -type f | wc -l
           echo "files found"
 
-      - name: Lex dustlib_k files (verify parsing)
+      - name: Lex dustlib-k files (verify parsing)
         run: |
           export PATH="$PWD/../dust/target/debug:$PATH"
           # For library verification, we check if files can be found
